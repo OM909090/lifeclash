@@ -162,11 +162,18 @@ server to run.
    - `anon` public key → `NEXT_PUBLIC_SUPABASE_ANON_KEY`
    - `service_role` key → `SUPABASE_SERVICE_ROLE_KEY` (server-only, optional)
 
-2. **Run the migrations.** Open the Supabase SQL Editor and run, in order:
-   - `supabase/migrations/0001_schema.sql` — tables, RLS, triggers, seed clan/raid
-   - `supabase/migrations/0002_functions.sql` — the server-authoritative game logic
+2. **Run the migrations** (in order): `0001_schema.sql`, `0002_functions.sql`,
+   `0003_google_identity.sql`. Any of:
+   - **SQL Editor** — paste each file and run.
+   - **One command** — grab the Postgres URI (Settings → Database → Connection
+     string → URI) and run:
+     ```bash
+     DATABASE_URL="postgresql://postgres:...@db.<ref>.supabase.co:5432/postgres" \
+       bash scripts/apply-migrations.sh
+     ```
+   - **CLI** — `supabase link --project-ref <ref>` then `supabase db push`.
 
-   (Or with the CLI: `supabase link --project-ref <ref>` then `supabase db push`.)
+   They're additive and idempotent, so re-running is safe.
 
 3. **Auth settings.** Authentication → Providers → Email is on by default. For a
    frictionless demo, turn **"Confirm email" off** (Authentication → Providers →
