@@ -70,3 +70,10 @@ Thumbs.db
 # Misc / secrets
 *.pem
 *.key
+
+# Local docs & working notes — kept on disk, NOT shipped to the public repo.
+# The repo carries only README.md; briefs, references and the problem PDF stay local.
+/problem-statement.pdf
+/design-refs/
+/KIRO-*.md
+/LIFECLASH-*.md
