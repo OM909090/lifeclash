@@ -1,15 +1,72 @@
-node_modules/
-.next/
-out/
-build/
-.DS_Store
-*.pem
+# ---------------------------------------------------------------------------
+# LifeClash — .gitignore
+# ---------------------------------------------------------------------------
+
+# Dependencies
+/node_modules
+/.pnp
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/versions
+
+# Next.js / build output
+/.next/
+/out/
+/build
+/dist
+
+# Production & tooling caches
+/coverage
+*.tsbuildinfo
+next-env.d.ts
+.turbo
+.swc/
+
+# Environment variables — ignore everything except the committed template.
+# (Covers .env, .env.local, .env.development, .env.production, .env.*, etc.)
+.env
+.env.*
+!.env.example
+
+# Deployment
+.vercel
+.netlify
+
+# Local verification artifacts (dev-only screenshots, seeds)
+/.screens/
+
+# Supabase CLI local state (migrations ARE committed)
+/supabase/.branches
+/supabase/.temp
+/supabase/.env
+
+# Logs
+*.log
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-.env
-.env*.local
-.vercel
-*.tsbuildinfo
-next-env.d.ts
-.screens/
+pnpm-debug.log*
+lerna-debug.log*
+
+# Editors / IDEs
+/.vscode/*
+!/.vscode/extensions.json
+/.idea
+*.swp
+*.swo
+
+# OS cruft
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Misc / secrets
+*.pem
+*.key
