@@ -1,0 +1,299 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --grid-tile: 92px;
+  }
+
+  * {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-sky-base font-body text-panel-base antialiased;
+    overscroll-behavior-y: none;
+  }
+
+  /* Chunky game scrollbar */
+  ::-webkit-scrollbar {
+    width: 12px;
+    height: 12px;
+  }
+  ::-webkit-scrollbar-track {
+    @apply bg-panel-dark;
+  }
+  ::-webkit-scrollbar-thumb {
+    @apply rounded-pill border-2 border-panel-dark bg-wood-base;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-wood-light;
+  }
+
+  ::selection {
+    @apply bg-gold-base text-wood-deep;
+  }
+
+  /* Visible focus for keyboard users, invisible for mouse users. */
+  :focus-visible {
+    outline: 3px solid #fff078;
+    outline-offset: 3px;
+  }
+}
+
+@layer components {
+  /* ------------------------------------------------------------------------ */
+  /* DISPLAY TYPE                                                              */
+  /* Cream fill + heavy brown outline + drop shadow. This is the single most    */
+  /* recognisable part of the reference art direction.                         */
+  /* ------------------------------------------------------------------------ */
+  .text-outline {
+    @apply font-display text-cream;
+    -webkit-text-stroke: 8px #4d2815;
+    paint-order: stroke fill;
+    text-shadow: 0 6px 0 rgba(51, 25, 12, 0.55), 0 12px 26px rgba(0, 0, 0, 0.4);
+  }
+  .text-outline-md {
+    @apply font-display text-cream;
+    -webkit-text-stroke: 5px #4d2815;
+    paint-order: stroke fill;
+    text-shadow: 0 4px 0 rgba(51, 25, 12, 0.5), 0 8px 18px rgba(0, 0, 0, 0.34);
+  }
+  .text-outline-sm {
+    @apply font-display text-cream;
+    -webkit-text-stroke: 3px #4d2815;
+    paint-order: stroke fill;
+    text-shadow: 0 2px 0 rgba(51, 25, 12, 0.5), 0 5px 10px rgba(0, 0, 0, 0.3);
+  }
+  .text-outline-xs {
+    @apply font-display text-cream;
+    -webkit-text-stroke: 2px #4d2815;
+    paint-order: stroke fill;
+    text-shadow: 0 2px 0 rgba(51, 25, 12, 0.45);
+  }
+  /* Dark-background variant: keeps the stroke but drops the warm cast. */
+  .text-outline-ink {
+    @apply font-display text-cream;
+    -webkit-text-stroke: 5px #0e1517;
+    paint-order: stroke fill;
+    text-shadow: 0 4px 0 rgba(0, 0, 0, 0.55), 0 10px 22px rgba(0, 0, 0, 0.45);
+  }
+
+  /* ------------------------------------------------------------------------ */
+  /* SIGNATURE 3D BUTTON                                                       */
+  /* The bottom border IS the extruded face. Pressing collapses it and moves    */
+  /* the cap down by the same amount, so the button appears to physically sink. */
+  /* ------------------------------------------------------------------------ */
+  .btn3d {
+    @apply relative inline-flex select-none items-center justify-center gap-2
+           rounded-chunk border-b-[6px] px-6 py-3 font-display uppercase
+           tracking-wide transition-[transform,box-shadow,filter] duration-100
+           ease-out active:translate-y-1 active:border-b-[2px];
+    text-shadow: 0 2px 0 rgba(0, 0, 0, 0.32);
+  }
+  .btn3d::before {
+    /* top gloss */
+    content: "";
+    @apply pointer-events-none absolute inset-x-1 top-0.5 h-2/5 rounded-t-[0.6rem];
+    background: linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.5) 0%,
+      rgba(255, 255, 255, 0) 100%
+    );
+  }
+  .btn3d:hover {
+    filter: brightness(1.08);
+  }
+  .btn3d:disabled {
+    @apply pointer-events-none translate-y-1 border-b-[2px] opacity-55 saturate-50;
+  }
+
+  .btn3d-gold {
+    @apply bg-gold-gradient border-gold-bevel text-cream shadow-btn-gold;
+    -webkit-text-stroke: 1.5px #6b3d08;
+    paint-order: stroke fill;
+  }
+  .btn3d-elixir {
+    @apply bg-elixir-gradient border-elixir-bevel text-cream shadow-btn-elixir;
+    -webkit-text-stroke: 1.5px #40095c;
+    paint-order: stroke fill;
+  }
+  .btn3d-gem {
+    @apply bg-gem-gradient border-gem-bevel text-cream shadow-btn-gem;
+    -webkit-text-stroke: 1.5px #0b4113;
+    paint-order: stroke fill;
+  }
+  .btn3d-stone {
+    @apply bg-stone-gradient border-stone-dark text-cream shadow-btn-stone;
+    -webkit-text-stroke: 1.5px #2f3436;
+    paint-order: stroke fill;
+  }
+  .btn3d-wood {
+    @apply bg-wood-gradient border-wood-dark text-cream shadow-btn-wood;
+    -webkit-text-stroke: 1.5px #2b1409;
+    paint-order: stroke fill;
+  }
+  .btn3d-danger {
+    @apply border-[#8E2020] text-cream shadow-btn-danger;
+    background: linear-gradient(180deg, #ff8a7a 0%, #e94b4b 45%, #b32d2d 100%);
+    -webkit-text-stroke: 1.5px #6d1616;
+    paint-order: stroke fill;
+  }
+
+  /* ------------------------------------------------------------------------ */
+  /* PANELS & CARDS                                                            */
+  /* Warm tan plate, dark-brown rounded border, inner gloss, outer drop shadow. */
+  /* ------------------------------------------------------------------------ */
+  .panel-wood {
+    @apply relative rounded-panel border-[5px] border-wood-dark
+           bg-tan-gradient shadow-panel;
+  }
+  .panel-wood::before {
+    content: "";
+    @apply pointer-events-none absolute inset-x-2 top-1.5 h-8 rounded-t-2xl;
+    background: linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.55) 0%,
+      rgba(255, 255, 255, 0) 100%
+    );
+  }
+
+  .panel-stone {
+    @apply relative rounded-panel border-[5px] border-stone-deep
+           bg-stone-gradient shadow-panel;
+  }
+  .panel-stone::before {
+    content: "";
+    @apply pointer-events-none absolute inset-x-2 top-1.5 h-8 rounded-t-2xl;
+    background: linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.6) 0%,
+      rgba(255, 255, 255, 0) 100%
+    );
+  }
+
+  .panel-dark {
+    @apply relative rounded-panel border-[5px] border-panel-ink
+           bg-panel-gradient text-cream shadow-panel;
+  }
+  .panel-dark::before {
+    content: "";
+    @apply pointer-events-none absolute inset-x-2 top-1.5 h-8 rounded-t-2xl;
+    background: linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.16) 0%,
+      rgba(255, 255, 255, 0) 100%
+    );
+  }
+
+  /* Auth form input — matches the wizard's fields. */
+  .auth-input {
+    @apply w-full rounded-chunk border-[4px] border-wood-dark bg-tan-light px-4 py-3
+           font-body text-base font-bold text-wood-deep shadow-inset-soft outline-none
+           transition-shadow placeholder:text-wood-mid/40 focus:border-gold-base;
+  }
+
+  /* Recessed slot — used for progress bar tracks and resource counter wells. */
+  .well {
+    @apply rounded-pill border-2 border-panel-ink/70 bg-panel-ink/85 shadow-inset;
+  }
+
+  /* Glossy near-black nav pill from the reference. */
+  .nav-pill {
+    @apply rounded-pill border-2 border-white/[0.12] shadow-nav backdrop-blur-md;
+    background: linear-gradient(
+      180deg,
+      rgba(38, 50, 56, 0.94) 0%,
+      rgba(14, 21, 23, 0.96) 100%
+    );
+  }
+
+  /* Beveled resource counter capsule (top HUD). */
+  .counter {
+    @apply relative flex items-center gap-1.5 rounded-pill border-2 border-panel-ink
+           px-2.5 py-1 font-ui font-extrabold tabular-nums text-cream;
+    background: linear-gradient(
+      180deg,
+      rgba(72, 86, 92, 0.96) 0%,
+      rgba(22, 30, 33, 0.96) 100%
+    );
+    box-shadow: 0 3px 0 rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.22);
+  }
+
+  /* Isometric tile face. */
+  .iso-tile {
+    @apply absolute transition-[filter,transform] duration-150;
+    transform-style: preserve-3d;
+  }
+
+  /* Sheen sweep used on gold bars and league badges. */
+  .sheen {
+    @apply pointer-events-none absolute inset-0 overflow-hidden;
+  }
+  .sheen::after {
+    content: "";
+    @apply absolute inset-y-0 -left-1/2 w-1/3 animate-shimmer;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.55),
+      transparent
+    );
+  }
+}
+
+@layer utilities {
+  .grid-checker {
+    background-image: linear-gradient(
+        45deg,
+        rgba(255, 255, 255, 0.055) 25%,
+        transparent 25%,
+        transparent 75%,
+        rgba(255, 255, 255, 0.055) 75%
+      ),
+      linear-gradient(
+        45deg,
+        rgba(255, 255, 255, 0.055) 25%,
+        transparent 25%,
+        transparent 75%,
+        rgba(255, 255, 255, 0.055) 75%
+      );
+    background-size: var(--grid-tile) var(--grid-tile);
+    background-position: 0 0, calc(var(--grid-tile) / 2) calc(var(--grid-tile) / 2);
+  }
+
+  .preserve-3d {
+    transform-style: preserve-3d;
+  }
+
+  .drop-shadow-chunk {
+    filter: drop-shadow(0 8px 10px rgba(0, 0, 0, 0.42));
+  }
+  .drop-shadow-sprite {
+    filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.35));
+  }
+
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}
+
+/* Respect the OS "reduce motion" setting: kill ambient loops, keep transitions. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+  }
+}
